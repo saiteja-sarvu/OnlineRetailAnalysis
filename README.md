@@ -2,6 +2,21 @@
 
 Exploratory analysis and customer segmentation on the classic UCI "Online Retail" dataset — transactions from a UK-based online gift retailer between December 2010 and December 2011.
 
+## Why this project exists
+
+Raw transaction logs (one row per line item) don't answer business questions by themselves — nobody can look at 540K rows and tell you which customers are worth protecting, which are slipping away, or whether the business is dangerously dependent on a small group of big spenders. This project turns that raw log into decision-ready numbers:
+
+| Technique used | Question it answers | Who it helps |
+|---|---|---|
+| **Cleaning** (drop cancellations, refunds, missing customer IDs, duplicates) | "Is this number trustworthy?" | Anyone consuming the metrics downstream — bad rows silently inflate/deflate revenue and customer counts if left in. |
+| **Descriptive analysis** (revenue, AOV, top products/countries/customers) | "What's actually driving the business right now?" | Founders/managers for quick health checks; merchandising for what to stock more of; ops for which markets to prioritize. |
+| **RFM (Recency, Frequency, Monetary)** | "How healthy is each customer relationship, individually?" | Turns thousands of anonymous customer IDs into a per-customer score instead of one company-wide average that hides the variance between them. |
+| **RFM segmentation** (Champions / Loyal / Potential Loyalists / At Risk / Lost) | "Which customers do I reward, nurture, or try to win back — and how do I reach each group?" | Marketing/CRM teams, who can target each segment differently (e.g. loyalty perks for Champions, win-back discounts for At Risk) instead of blasting one generic email to everyone. |
+| **Pareto (80/20) analysis** | "How concentrated is my revenue?" | Leadership/finance — a business where 26% of customers drive 80% of revenue has very different retention-vs-acquisition priorities (and very different risk exposure) than one with an even spread. |
+| **Cohort retention** | "Do customers who join in a given month keep coming back, and does that get better or worse over time?" | Growth/retention teams tracking whether product, pricing, or onboarding changes actually improve loyalty — a single retention % hides whether newer cohorts are doing better or worse than older ones. |
+
+In short: the raw files answer "what happened," the notebook answers "so what should we do about it," and the exported `cleaned_online_retail.csv` / `rfm_segments.csv` let those answers feed a dashboard so non-technical stakeholders can act on them without touching Python.
+
 ## Data
 
 - `data/Online Retail.xlsx` / `data/Online_Retail.csv` — raw source data (541,909 rows: `InvoiceNo`, `StockCode`, `Description`, `Quantity`, `InvoiceDate`, `UnitPrice`, `CustomerID`, `Country`).
